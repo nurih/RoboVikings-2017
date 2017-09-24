@@ -38,7 +38,7 @@ public class DriveOpMode extends OpMode {
         leftJoystickPosition = gamepad1.left_stick_y;
         rightJoystickPosition = gamepad1.right_stick_y;
 
-        leftMotor.setPower(-leftJoystickPosition);
-        rightMotor.setPower(rightJoystickPosition);
+        leftMotor.setPower(leftJoystickPosition);
+        rightMotor.setPower(-rightJoystickPosition);
     }
 }
