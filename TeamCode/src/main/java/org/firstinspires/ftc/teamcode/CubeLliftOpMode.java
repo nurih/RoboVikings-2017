@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  */
 
 @TeleOp(name = "joaquinisthebest" )
-public class CubeLliftOpMode extends OpMode {
+public class CubeLliftOpMode extends OpMode
+{
     DcMotor liftMotor = null;
 
     /**
