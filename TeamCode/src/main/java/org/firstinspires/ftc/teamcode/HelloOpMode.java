@@ -45,7 +45,7 @@ public class HelloOpMode extends OpMode {
     @Override
     public void init() {
 
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        colorSensor = TeamShared.getRobotPart( hardwareMap, RobotPart.colorSensor);
 
         telemetry.addLine("Initialized!");
     }
@@ -54,6 +54,7 @@ public class HelloOpMode extends OpMode {
      * User defined loop method
      * <p>
      * This method will be called repeatedly in a loop while this op mode is running
+     * Coding is like healers, no one wants to pick them XD
      */
     @Override
     public void loop() {
