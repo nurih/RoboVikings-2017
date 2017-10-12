@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
-@TeleOp(name = "Color Sensor", group = "Test")
+@TeleOp(name = "Color Sensor op mode test", group = "Test")
 public class colorSensorOpModeTest extends OpMode {
     private NormalizedColorSensor colorSensor;
 

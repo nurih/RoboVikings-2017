@@ -10,8 +10,7 @@ public class TeamShared {
         String deviceName = part.name();
 
         try {
-            T result = (T) map.get(part.getPartType(), deviceName);
-            return result;
+            return (T) map.get(part.getPartType(), deviceName);
         } catch (Exception e) {
             return null;
         }
