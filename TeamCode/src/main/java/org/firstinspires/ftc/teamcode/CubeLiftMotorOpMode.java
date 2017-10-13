@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Created by Robovikings on 10/7/2017.
  */
 
-@TeleOp(name = "joaquinisthebest" )
-public class CubeLliftOpMode extends OpMode
+@TeleOp(name = "Cube  Lift Motor Op Mode")
+public class CubeLiftMotorOpMode extends OpMode
 {
     DcMotor liftMotor = null;
 
@@ -33,7 +33,7 @@ public class CubeLliftOpMode extends OpMode
     @Override
     public void loop() {
 // 1 if Y is pressed: up.
-        if (gamepad1.y) {
+        if (gamepad2.y) {
             liftMotor.setPower(0.5);
         }else if (gamepad2.a){
             liftMotor.setPower(-0.5);
