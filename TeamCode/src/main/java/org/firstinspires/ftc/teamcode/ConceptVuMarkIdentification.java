@@ -17,8 +17,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
-
 @Autonomous(name = "Drive To Images", group = "Concept")
 @SuppressWarnings("unused")
 public class ConceptVuMarkIdentification extends LinearOpMode {
@@ -30,7 +28,7 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
+        //telemetry.addLine("I just want to say Jason couldn't have done this");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -52,8 +50,8 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
         rightMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.leftMotor);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         relicTrackables.activate();
         //Entering Loop
