@@ -30,7 +30,11 @@ public enum RobotPart {
     * */
 
     servo(Servo.class),
+    /*
+     * Servo to grab cubes
+     */
 
+    cubeLiftClaw(Servo.class),
 
     /*
     * Color Sensor

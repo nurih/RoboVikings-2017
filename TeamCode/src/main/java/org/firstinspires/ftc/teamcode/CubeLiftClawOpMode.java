@@ -13,19 +13,28 @@ public class CubeLiftClawOpMode extends OpMode {
 
     Servo servo;
 
-    double ServoPosition;
     double ServoMaxedPostion = 1;
     double ServoMinPosition = 0;
 
     @Override
     public void init() {
-        servo = hardwareMap.get(Servo.class, "CubeLiftClaw");
+        servo =  TeamShared.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
         servo.setPosition(0);
 
     }
 
     @Override
     public void loop() {
+        {
+            // if pressing button then open else close
+            if(gamepad2.b){
+                servo.setPosition(1);
+            }
+            else{
+                servo.setPosition(0);
+            }
+        }
+
 
     }
 }
