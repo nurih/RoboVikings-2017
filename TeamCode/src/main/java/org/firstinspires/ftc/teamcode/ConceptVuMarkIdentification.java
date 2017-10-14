@@ -17,14 +17,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 @Autonomous(name = "Drive To Images", group = "Concept")
-@SuppressWarnings("unused")
 public class ConceptVuMarkIdentification extends LinearOpMode {
-    boolean shouldTurnRight = false;
-    boolean shouldTurnLeft = false;
-    boolean shouldGoForward = false;
+
+    public static final int MOTOR_FULL_POWER = 1;
+    public static final double MOTOR_MEDIUM_POWER = 0.7;
+    public static final int MOTOR_STOP = 0;
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
+
+    Boolean shouldGoForward;
 
     @Override
     public void runOpMode() {
@@ -50,8 +53,9 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
         rightMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.leftMotor);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         relicTrackables.activate();
         //Entering Loop
@@ -70,7 +74,7 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
 
                     // Extract the X, Y, and Z components of the offset of the target relative to the robot
                     double tX = Math.round(trans.get(0));
-                    double tY = Math.round(trans.get(1));
+                    double tY = Math.round(trans.get(MOTOR_FULL_POWER));
                     double tZ = Math.round(trans.get(2));
 
                     telemetry.addData("translation X", tX);
@@ -86,43 +90,60 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
                     telemetry.addData("rotation Y", rY);
                     telemetry.addData("rotation Z", rZ);
 
-                    shouldGoForward = (tZ < -100);
+                    BotDirection botDirection = getBotDirection(tX);
+                    telemetry.addData("Target displacement", botDirection.toString());
+                    boolean tooClose = (tZ> -100);
 
-                    if (tX > 50) {
-                        shouldTurnRight = false;
-                        shouldTurnLeft = true;
-                    } else if (tX < -50) {
-                        shouldTurnRight = true;
-                        shouldTurnLeft = false;
-                    } else {
-                        shouldTurnRight = false;
-                        shouldTurnLeft = false;
-                    }
-
-                    if (shouldGoForward) {
-                        if (shouldTurnRight == true && shouldTurnLeft == false) {
-                            leftMotor.setPower(-.1);
-                            rightMotor.setPower(.5);
-                        } else if (shouldTurnRight == false && shouldTurnLeft == true) {
-                            leftMotor.setPower(-.5);
-                            rightMotor.setPower(.1);
-                        } else if (shouldTurnRight == false && shouldTurnLeft == false) {
-                            leftMotor.setPower(-.5);
-                            rightMotor.setPower(.5);
-                        }
-                    } else {
+                    if (tooClose) {
+                        telemetry.addLine("Too Close");
                         leftMotor.setPower(0);
                         rightMotor.setPower(0);
+                    } else {
+                        telemetry.addLine("Far enough");
+                        switch (botDirection) {
+                            case Center:
+                                // drive straight
+                                leftMotor.setPower(MOTOR_FULL_POWER);
+                                rightMotor.setPower(MOTOR_FULL_POWER);
+                                break;
+                            case Right:
+                                leftMotor.setPower(MOTOR_MEDIUM_POWER);
+                                rightMotor.setPower(MOTOR_FULL_POWER);
+                                // turn left;
+                                break;
+                            case Left:
+                                leftMotor.setPower(MOTOR_FULL_POWER);
+                                rightMotor.setPower(MOTOR_MEDIUM_POWER);
+                                // turn right
+                                break;
+                        }
+                        telemetry.addData("Right motor power", rightMotor.getPower());
+                        telemetry.addData("Left motor power", leftMotor.getPower());
+
                     }
                 }
             } else {
                 telemetry.addData("VuMark", "not visible");
-                leftMotor.setPower(.5);
-                rightMotor.setPower(-.5);
+                leftMotor.setPower(MOTOR_STOP);
+                rightMotor.setPower(MOTOR_STOP);
             }
 
             telemetry.update();
         }
+    }
+
+    private BotDirection getBotDirection(double translationX) {
+        BotDirection botDirection;
+        if (translationX > 50) {
+            botDirection = BotDirection.Left;
+        } else if
+                (translationX < -50) {
+            botDirection = BotDirection.Right;
+        } else {
+            botDirection = BotDirection.Center;
+        }
+
+        return botDirection;
     }
 
     String format(OpenGLMatrix transformationMatrix) {
@@ -130,7 +151,8 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
     }
 
     public enum BotDirection {
-        center, right, left, notVisible
+        Center,
+        Right,
+        Left,
     }
-
 }
