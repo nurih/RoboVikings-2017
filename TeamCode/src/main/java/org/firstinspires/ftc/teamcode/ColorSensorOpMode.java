@@ -1,35 +1,36 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-/**
- * Created by Robovikings on 9/23/2017.
- */
 
-@TeleOp(name = "Color Sensor", group = "Test")
-
-public class ColorSensorOpMode extends OpMode {
-    NormalizedColorSensor colorSensor;
+@Autonomous(name = "Color Sensor", group = "Test")
+public class ColorSensorOpMode extends LinearOpMode {
 
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
 
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
-    }
+        NormalizedColorSensor colorSensor = Viki.getRobotPart(hardwareMap, RobotPart.colorSensor);
 
-    @Override
-    public void loop() {
-        NormalizedRGBA normalizedColors = colorSensor.getNormalizedColors();
-        telemetry.addData("red", normalizedColors.red);
-        telemetry.addData("blue", normalizedColors.blue);
-        telemetry.addData("green", normalizedColors.green);
-        if(normalizedColors.blue > 0.02) {
-            telemetry.addData("red", "red");
-        }
+        telemetry.addLine("Initialized!");
+
+        NormalizedRGBA colors = Viki.getScaledRGBA(colorSensor);
+        HsvValues hsv = Viki.getHsvValues(colorSensor);
+
+        telemetry.addLine()
+                .addData("Hue", "%.3f", hsv.Hue)
+                .addData("Saturation", "%.3f", hsv.Saturation)
+                .addData("Value", "%.3f", hsv.Value);
+
+        telemetry.addLine()
+                .addData("Color.alpha", "%.3f", colors.alpha)
+                .addData("Color.red", "%.3f", colors.red)
+                .addData("Color.green", "%.3f", colors.green)
+                .addData("Color.blue", "%.3f", colors.blue);
+
     }
 }

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp
+@TeleOp(name = "Servo", group = "Test")
 public class ServoOpMode extends OpMode {
     private Servo servo = null;
     private double servoPosition = 0.5;

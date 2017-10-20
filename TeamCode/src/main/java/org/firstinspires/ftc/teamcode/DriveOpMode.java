@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-@TeleOp(name="Drive OpMode Test")
+@TeleOp(name = "Drive", group = "Test")
 public class DriveOpMode extends OpMode {
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;

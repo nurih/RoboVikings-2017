@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Robovikings on 10/13/2017.
  */
-@TeleOp(name = "cubeliftClaw")
+@TeleOp(name = "Cube lift Claw", group = "Test")
 @SuppressWarnings("unused")
 public class CubeLiftClawOpMode extends OpMode {
 
@@ -18,7 +18,7 @@ public class CubeLiftClawOpMode extends OpMode {
 
     @Override
     public void init() {
-        servo =  TeamShared.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
+        servo = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
         servo.setPosition(0);
 
     }

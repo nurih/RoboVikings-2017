@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Created by Robovikings on 10/7/2017.
  */
 
-@TeleOp(name = "Cube  Lift Motor Op Mode")
+@TeleOp(name = "Cube  Lift Motor", group = "Test")
 public class CubeLiftMotorOpMode extends OpMode
 {
     DcMotor liftMotor = null;
@@ -21,7 +21,7 @@ public class CubeLiftMotorOpMode extends OpMode
      */
     @Override
     public void init() {
-        liftMotor = TeamShared.getRobotPart( hardwareMap, RobotPart.cubeLiftMotor);
+        liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftMotor);
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 

@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-@Autonomous(name = "Drive To Images", group = "Concept")
+@Autonomous(name = "Drive To Images", group = "Test")
 public class ConceptVuMarkIdentification extends LinearOpMode {
 
     public static final int MOTOR_FULL_POWER = 1;
@@ -35,7 +35,7 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        parameters.vuforiaLicenseKey = TeamShared.VisionKey;
+        parameters.vuforiaLicenseKey = Viki.VisionKey;
 
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
@@ -50,8 +50,8 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
         DcMotor rightMotor = null;
         DcMotor leftMotor = null;
 
-        rightMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.rightMotor);
-        leftMotor = TeamShared.getRobotPart(hardwareMap, RobotPart.leftMotor);
+        rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
+        leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
 
 
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
