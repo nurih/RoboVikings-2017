@@ -13,8 +13,6 @@ public class CubeLiftClawOpMode extends OpMode {
 
     Servo servo;
 
-    double ServoMaxedPostion = 1;
-    double ServoMinPosition = 0;
 
     @Override
     public void init() {
@@ -28,10 +26,10 @@ public class CubeLiftClawOpMode extends OpMode {
         {
             // if pressing button then open else close
             if(gamepad2.b){
-                servo.setPosition(1);
+                servo.setPosition(Servo.MAX_POSITION);
             }
             else{
-                servo.setPosition(0);
+                servo.setPosition(Servo.MIN_POSITION);
             }
         }
 

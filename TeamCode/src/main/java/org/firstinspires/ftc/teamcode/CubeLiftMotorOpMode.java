@@ -5,40 +5,28 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-/**
- * Created by Robovikings on 10/7/2017.
- */
 
 @TeleOp(name = "Cube  Lift Motor", group = "Test")
 public class CubeLiftMotorOpMode extends OpMode
 {
+    public static final double POWER = 0.5;
     DcMotor liftMotor = null;
 
-    /**
-     * User defined init method
-     * <p>
-     * This method will be called once when the INIT button is pressed.
-     */
     @Override
     public void init() {
         liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftMotor);
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
-    /**
-     * User defined loop method
-     * <p>
-     * This method will be called repeatedly in a loop while this op mode is running
-     */
     @Override
     public void loop() {
 // 1 if Y is pressed: up.
         if (gamepad2.y) {
-            liftMotor.setPower(0.5);
+            liftMotor.setPower(POWER);
         }else if (gamepad2.a){
-            liftMotor.setPower(-0.5);
-        }else{liftMotor.setPower(0);
-
+            liftMotor.setPower(-POWER);
+        }else{
+            liftMotor.setPower(Viki.STOP_MOTOR);
         }
     }
 }
