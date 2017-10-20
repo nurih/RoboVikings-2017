@@ -13,11 +13,10 @@ public class CubeLiftClawOpMode extends OpMode {
 
     Servo servo;
 
-
     @Override
     public void init() {
         servo = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
-        servo.setPosition(0);
+        servo.setPosition(Servo.MIN_POSITION);
 
     }
 
