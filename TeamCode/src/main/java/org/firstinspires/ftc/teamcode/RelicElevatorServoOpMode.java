@@ -23,6 +23,7 @@ public class RelicElevatorServoOpMode extends OpMode {
         } else if (gamepad2.right_stick_y < errorRange) {
             servoPosition = Math.min( Servo.MIN_POSITION, servoPosition - 0.01);
         }
+        telemetry.addData("Servo Location", servoPosition);
         elevatorServo.setPosition(servoPosition);
     }
 }
