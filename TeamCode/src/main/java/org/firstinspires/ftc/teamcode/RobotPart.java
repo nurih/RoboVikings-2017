@@ -25,11 +25,11 @@ public enum RobotPart {
     * Cube Lift Motor*/
     cubeLiftMotor(DcMotor.class),
 
-    /*
-    * Servo
-    * */
+    /**
+     * Jewel servo
+     */
 
-    servo(Servo.class),
+    jewelServo(Servo.class),
     /*
      * Servo to grab cubes
      */
