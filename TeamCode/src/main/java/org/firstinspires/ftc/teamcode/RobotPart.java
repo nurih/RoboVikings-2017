@@ -26,10 +26,21 @@ public enum RobotPart {
     cubeLiftMotor(DcMotor.class),
 
     /*
-    * Servo
+    * Relic Extender Motor*/
+    relicExtenderMotor(DcMotor.class),
+
+    /*
+    * Servo to grab relic
     * */
 
     relicGripServo(Servo.class),
+
+    /*
+    * Servo to elevate
+    * */
+
+    relicElevatorServo(Servo.class),
+
     /*
      * Servo to grab cubes
      */
