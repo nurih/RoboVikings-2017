@@ -29,7 +29,7 @@ public enum RobotPart {
     * Servo
     * */
 
-    servo(Servo.class),
+    relicGripServo(Servo.class),
     /*
      * Servo to grab cubes
      */

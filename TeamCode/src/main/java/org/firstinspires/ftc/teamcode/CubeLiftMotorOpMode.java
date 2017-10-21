@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name = "Cube  Lift Motor", group = "Test")
 public class CubeLiftMotorOpMode extends OpMode
 {
-    public static final double POWER = 0.5;
     DcMotor liftMotor = null;
 
     @Override
@@ -20,12 +19,18 @@ public class CubeLiftMotorOpMode extends OpMode
 
     @Override
     public void loop() {
-        if (gamepad2.right_trigger) {
-            liftMotor.setPower(POWER);
-        }else if (gamepad2.left_trigger){
-            liftMotor.setPower(-POWER);
-        }else{  
+        if (gamepad2.right_trigger > 0.1) {
+
+            liftMotor.setPower(gamepad2.right_trigger);
+
+        } else if (gamepad2.left_trigger > 0.1) {
+
+            liftMotor.setPower(-gamepad2.left_trigger);
+
+        } else {
+
             liftMotor.setPower(Viki.STOP_MOTOR);
+
         }
     }
 }
