@@ -20,12 +20,11 @@ public class CubeLiftMotorOpMode extends OpMode
 
     @Override
     public void loop() {
-// 1 if Y is pressed: up.
-        if (gamepad2.y) {
+        if (gamepad2.right_trigger) {
             liftMotor.setPower(POWER);
-        }else if (gamepad2.a){
+        }else if (gamepad2.left_trigger){
             liftMotor.setPower(-POWER);
-        }else{
+        }else{  
             liftMotor.setPower(Viki.STOP_MOTOR);
         }
     }

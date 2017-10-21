@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class DriveOpMode extends OpMode {
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
-    
+
     @Override
     public void init() {
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
