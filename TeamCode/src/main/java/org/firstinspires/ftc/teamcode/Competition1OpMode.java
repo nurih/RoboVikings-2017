@@ -18,5 +18,8 @@ public class Competition1OpMode extends MultiOpMode {
         addOpMode(new DriveOpMode());
         addOpMode(new CubeLiftClawOpMode());
         addOpMode(new CubeLiftMotorOpMode());
+        addOpMode(new RelicGripServoOpMode());
+        addOpMode(new RelicElevatorServoOpMode());
+        addOpMode(new RelicExtenderMotorOpMode());
     }
 }

@@ -10,13 +10,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class DriveOpMode extends OpMode {
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
-    
+
     @Override
     public void init() {
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
-        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
     }

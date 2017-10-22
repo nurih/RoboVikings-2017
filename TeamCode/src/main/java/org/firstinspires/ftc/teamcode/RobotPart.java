@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public enum RobotPart {
 
-    /*
+    /**
     * Left Drive Motor
-    * */
+    */
     leftMotor(DcMotor.class),
 
     /**
@@ -21,24 +21,39 @@ public enum RobotPart {
      */
     rightMotor(DcMotor.class),
 
-    /*
-    * Cube Lift Motor*/
-    cubeLiftMotor(DcMotor.class),
-
     /**
      * Jewel servo
      */
-
     jewelServo(Servo.class),
-    /*
+
+    /**
+    * Cube Lift Motor
+    */
+    cubeLiftMotor(DcMotor.class),
+
+    /**
+    * Relic Extender Motor
+    */
+    relicExtenderMotor(DcMotor.class),
+
+    /**
+    * Servo to grab relic
+    */
+    relicGripServo(Servo.class),
+
+    /**
+    * Servo to elevate
+    */
+    relicElevatorServo(Servo.class),
+
+    /**
      * Servo to grab cubes
      */
-
     cubeLiftClaw(Servo.class),
 
-    /*
+    /**
     * Color Sensor
-    * */
+    */
     colorSensor(NormalizedColorSensor.class),;
 
     private Class<? extends HardwareDevice> _partType;
