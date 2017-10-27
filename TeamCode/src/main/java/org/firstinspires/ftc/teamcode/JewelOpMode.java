@@ -28,7 +28,7 @@ public class JewelOpMode extends OpMode {
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         servo.setPosition(Servo.MAX_POSITION);
-
+telemetry.addLine("Initialized!");
     }
 
     @Override
