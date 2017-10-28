@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class motorChangerServoOpMode extends OpMode {
+public class MotorChangerServoOpMode extends OpMode {
 
     private Servo servo = null;
     private double servoPosition = Servo.MAX_POSITION;
@@ -23,5 +23,6 @@ public class motorChangerServoOpMode extends OpMode {
             servoPosition = Servo.MAX_POSITION;
         }
         servo.setPosition(servoPosition);
+        telemetry.addData("Motor selection", servoPosition);
     }
 }

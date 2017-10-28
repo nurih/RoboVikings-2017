@@ -7,8 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @TeleOp(name = "Cube Or Relic Switched Lift Motor", group = "Test")
-public class SwitchedMotorOpMode extends OpMode
-{
+public class SwitchedMotorOpMode extends OpMode {
     DcMotor motor = null;
 
     @Override
