@@ -17,13 +17,18 @@ public class DriveOpMode extends OpMode {
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-
     }
 
     @Override
     public void loop() {
         leftMotor.setPower(gamepad1.left_stick_y);
         rightMotor.setPower(gamepad1.right_stick_y);
+        if (gamepad1.x) {
+            leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        } else if (gamepad1.y) {
+            leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
     }
 }
