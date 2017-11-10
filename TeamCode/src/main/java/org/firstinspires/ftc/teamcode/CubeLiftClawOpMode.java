@@ -16,7 +16,7 @@ public class CubeLiftClawOpMode extends OpMode {
     @Override
     public void init() {
         servo = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
-        servo.setPosition(Servo.MIN_POSITION);
+        servo.setPosition(Servo.MAX_POSITION*0.25);
     }
 
     @Override
@@ -24,10 +24,10 @@ public class CubeLiftClawOpMode extends OpMode {
         {
             // if pressing button then open else close
             if(gamepad1.right_bumper){
-                servo.setPosition(Servo.MAX_POSITION * 0.25);
+                servo.setPosition(Servo.MAX_POSITION * 0.5);
             }
             else if(gamepad1.left_bumper){
-                servo.setPosition(Servo.MIN_POSITION);
+                servo.setPosition(Servo.MAX_POSITION*0.25);
             }
         }
 

@@ -50,7 +50,7 @@ public class Viki {
      */
     public static HsvValues getHsvValues(NormalizedColorSensor sensor) {
         NormalizedRGBA colors = getScaledRGBA(sensor);
-
+        //telemetry.addLine("viki1");
         return getHsvValues(colors);
     }
 

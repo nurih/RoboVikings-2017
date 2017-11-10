@@ -15,5 +15,6 @@ public class Competition1OpMode extends MultiOpMode {
         addOpMode(new RelicGripServoOpMode());
         addOpMode(new RelicExtenderMotorOpMode());
         addOpMode(new MotorChangerServoOpMode());
+        addOpMode(new JewelServoOpMode());
     }
 }

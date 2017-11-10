@@ -17,6 +17,8 @@ public class DriveOpMode extends OpMode {
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     @Override

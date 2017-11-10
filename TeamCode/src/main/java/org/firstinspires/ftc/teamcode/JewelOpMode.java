@@ -9,27 +9,18 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "Jewel", group = "Test")
+@Autonomous(name = "RedAlliance", group = "Test")
 public class JewelOpMode extends LinearOpMode {
-    public static final double START_POSITION = .45;
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
-
     Alliance allience = Alliance.Red;
     private Servo servo = null;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
 
-    /**
-     * Override this method and place your code here.
-     * <p>
-     * Please do not swallow the InterruptedException, as it is used in cases
-     * where the op mode needs to be terminated early.
-     *
-     * @throws InterruptedException
-     */
 
     public void setup() {
+        telemetry.addLine("setup!");
         colorSensor = Viki.getRobotPart(hardwareMap, RobotPart.colorSensor);
         servo = Viki.getRobotPart(hardwareMap, RobotPart.jewelServo);
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
@@ -38,7 +29,7 @@ public class JewelOpMode extends LinearOpMode {
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        servo.setPosition(START_POSITION);
+        servo.setPosition(Servo.MAX_POSITION);
 
         telemetry.addLine("Initialized!");
     }
@@ -49,7 +40,7 @@ public class JewelOpMode extends LinearOpMode {
         setup();
 
         // Lower arm
-        servo.setPosition(Servo.MAX_POSITION);
+        servo.setPosition(Servo.MAX_POSITION );
 
         // detect color
         boolean isRed;
@@ -58,47 +49,23 @@ public class JewelOpMode extends LinearOpMode {
             HsvValues hsv = Viki.getHsvValues(colorSensor);
             isRed = getIsRed(hsv);
             isBlue = getIsBlue(hsv);
-
             telemetry.addData("Hsv.Hue", hsv.Hue);
             telemetry.addData("Hsv.Value", hsv.Value);
             telemetry.addData("Seeing Blue ", isBlue);
             telemetry.addData("Seeing Red ", isRed);
+            telemetry.update();
         } while (isRed == false && isBlue == false);
-
+        //}
 
         // "react" - knock off the jewel according to our alliance
-        if (allience == Alliance.Red) {
-            if (isBlue) {
-                goForward();
-            } else if (isRed) {
-                goBackward();
-            } else {
-                stopMotors();
-            }
-        } else {
-            if (isBlue) {
-                goBackward();
-            } else if (isRed) {
-                goForward();
-            } else {
-                stopMotors();
-            }
-        }
 
-
-        // lift arm again
-
-        servo.setPosition(START_POSITION);
-
-        // driver forward a bit
-
-        double startTime = super.getRuntime();
-        do {
+        if ( isBlue ) {
+            goBackward();
+        } else if ( isRed ) {
             goForward();
-        } while (getRuntime() < startTime + 2);
-
-        // stop motors
-        stopMotors();
+        } else {
+            stopMotors();
+        }
 
     }
 
@@ -108,17 +75,40 @@ public class JewelOpMode extends LinearOpMode {
     }
 
     private void goBackward() {
+        double startTime = super.getRuntime();
+        do {
+        leftMotor.setPower(FULLPOWER);
+        rightMotor.setPower(FULLPOWER);
+        } while (getRuntime() < startTime + .2);
+        servo.setPosition(Servo.MIN_POSITION);
+        do {
         leftMotor.setPower(-FULLPOWER);
         rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + 2);
+
+
+
     }
 
     private void goForward() {
-        leftMotor.setPower(FULLPOWER);
-        rightMotor.setPower(FULLPOWER);
+        double startTime = super.getRuntime();
+        do {
+        leftMotor.setPower(-FULLPOWER);
+        rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + .2);
+        servo.setPosition(Servo.MIN_POSITION);
+        do {
+        leftMotor.setPower(-FULLPOWER);
+        rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + 2);
+
+
+
     }
 
     private boolean getIsBlue(HsvValues hsv) {
         boolean result;
+        telemetry.addLine("getIsBlue!");
         if (hsv.Hue < 180) {
             result = false;
         } else if (hsv.Hue > 220) {
@@ -130,7 +120,7 @@ public class JewelOpMode extends LinearOpMode {
     }
 
     private boolean getIsRed(HsvValues hsv) {
-
+        telemetry.addLine("getIsRed!");
         boolean result;
         if (hsv.Hue < 5) {
             result = true;
