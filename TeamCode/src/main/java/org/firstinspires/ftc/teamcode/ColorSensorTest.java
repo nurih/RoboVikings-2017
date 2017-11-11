@@ -10,13 +10,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-
+@Disabled
 @Autonomous(name = "Color Sensor2", group = "Test")
 //@Disabled                            // Comment this out to add to the opmode list
 public class ColorSensorTest extends LinearOpMode {

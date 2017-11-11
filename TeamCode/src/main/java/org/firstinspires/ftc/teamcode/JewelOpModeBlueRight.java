@@ -2,17 +2,15 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.sun.tools.javac.util.Position;
 
 
 @Autonomous(name = "Blue Right", group = "Test")
 public class JewelOpModeBlueRight extends LinearOpMode {
-    public static final double KNOCK_JEWEL_TIME = .2;
+    public static final double KNOCK_JEWEL_TIME = .40001;
     public static final double DRIVE_OFF_PLATFORM_TIME = 2;
     public static final double TURN_TIME = .5;
     public static final double PARKING_TIME = .6;
@@ -71,9 +69,9 @@ public class JewelOpModeBlueRight extends LinearOpMode {
 
         // "react" - knock off the jewel according to our alliance
 
-        if ( isBlue ) {
+        if (isRed) {
             goForward();
-        } else if ( isRed ) {
+        } else if (isBlue) {
             goBackward();
         }
         stopMotors();
