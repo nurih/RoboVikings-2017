@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -11,6 +10,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "Red Right", group = "Test")
 public class JewelOpModeRedRight extends LinearOpMode {
+    public static final double KNOCK_JEWEL_TIME = .2;
+    public static final double DRIVE_OFF_PLATFORM_TIME = 2;
+    public static final double TURN_TIME = .5;
+    public static final double PARKING_TIME = .6;
+
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
     Alliance allience = Alliance.Red;
@@ -40,7 +44,7 @@ public class JewelOpModeRedRight extends LinearOpMode {
         setup();
 
         // Lower arm
-        servo.setPosition(Servo.MAX_POSITION );
+        servo.setPosition(Servo.MAX_POSITION);
         // wait for servo to drop
         double startTime = super.getRuntime();
 
@@ -65,20 +69,18 @@ public class JewelOpModeRedRight extends LinearOpMode {
 
         // "react" - knock off the jewel according to our alliance
 
-        if ( isBlue ) {
+        if (isBlue) {
             goBackward();
-        } else if ( isRed ) {
+        } else if (isRed) {
             goForward();
-        } else {
-            stopMotors();
         }
-
+        stopMotors();
     }
 
     private void stopMotors() {
         leftMotor.setPower(0);
-
         rightMotor.setPower(0);
+
     }
 
     private void goBackward() {
@@ -86,25 +88,30 @@ public class JewelOpModeRedRight extends LinearOpMode {
         do {
             leftMotor.setPower(FULLPOWER);
             rightMotor.setPower(FULLPOWER);
-        } while (getRuntime() < startTime + .5);
+        } while (getRuntime() < startTime + KNOCK_JEWEL_TIME);
+
         servo.setPosition(Servo.MIN_POSITION);
-         do {
+
+        do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 2);
+        } while (getRuntime() < startTime + DRIVE_OFF_PLATFORM_TIME);
+
         startTime = super.getRuntime();
+
         do {
-            //leftMotor.setPower(FULLPOWER);
+            leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(FULLPOWER);
-        } while (getRuntime() < startTime + .8);
+        } while (getRuntime() < startTime + TURN_TIME);
+
         startTime = super.getRuntime();
         do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 1.5);
+        } while (getRuntime() < startTime + PARKING_TIME);
 
 
-        }
+    }
 
 
     private void goForward() {
@@ -112,16 +119,26 @@ public class JewelOpModeRedRight extends LinearOpMode {
         do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + .2);
+        } while (getRuntime() < startTime + KNOCK_JEWEL_TIME);
         servo.setPosition(Servo.MIN_POSITION);
         startTime = super.getRuntime();
         do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 2);
+        } while (getRuntime() < startTime + DRIVE_OFF_PLATFORM_TIME + KNOCK_JEWEL_TIME);
 
+        startTime = super.getRuntime();
 
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(FULLPOWER);
+        } while (getRuntime() < startTime + TURN_TIME);
 
+        startTime = super.getRuntime();
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + PARKING_TIME);
 
     }
 

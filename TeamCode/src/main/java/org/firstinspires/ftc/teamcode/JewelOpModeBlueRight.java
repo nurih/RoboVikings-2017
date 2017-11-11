@@ -12,6 +12,12 @@ import com.sun.tools.javac.util.Position;
 
 @Autonomous(name = "Blue Right", group = "Test")
 public class JewelOpModeBlueRight extends LinearOpMode {
+    public static final double KNOCK_JEWEL_TIME = .2;
+    public static final double DRIVE_OFF_PLATFORM_TIME = 2;
+    public static final double TURN_TIME = .5;
+    public static final double PARKING_TIME = .6;
+
+
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
     Alliance allience = Alliance.Blue;
@@ -26,8 +32,8 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         servo.setPosition(Servo.MAX_POSITION);
 
@@ -40,7 +46,13 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         setup();
 
         // Lower arm
-        servo.setPosition(Servo.MAX_POSITION );
+        servo.setPosition(Servo.MAX_POSITION);
+        // wait for servo to drop
+        double startTime = super.getRuntime();
+
+        do {
+            // waiting for servo to drop
+        } while (getRuntime() < startTime + 3);
 
         // detect color
         boolean isRed;
@@ -63,10 +75,8 @@ public class JewelOpModeBlueRight extends LinearOpMode {
             goForward();
         } else if ( isRed ) {
             goBackward();
-        } else {
-            stopMotors();
         }
-
+        stopMotors();
     }
 
     private void stopMotors() {
@@ -79,39 +89,59 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         do {
             leftMotor.setPower(FULLPOWER);
             rightMotor.setPower(FULLPOWER);
-        } while (getRuntime() < startTime + .2);
-        servo.setPosition(Servo.MIN_POSITION);
-        do {
-            leftMotor.setPower(FULLPOWER);
-            rightMotor.setPower(FULLPOWER);
-        } while (getRuntime() < startTime + 2);
+        } while (getRuntime() < startTime + KNOCK_JEWEL_TIME);
 
+        servo.setPosition(Servo.MIN_POSITION);
+
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + DRIVE_OFF_PLATFORM_TIME);
+
+        startTime = super.getRuntime();
+
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(FULLPOWER);
+        } while (getRuntime() < startTime + TURN_TIME);
+
+        startTime = super.getRuntime();
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + PARKING_TIME);
 
 
     }
 
+
     private void goForward() {
         double startTime = super.getRuntime();
         do {
-            leftMotor.setPower(FULLPOWER);
-            rightMotor.setPower(FULLPOWER);
-        } while (getRuntime() < startTime + .5);
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + KNOCK_JEWEL_TIME);
         servo.setPosition(Servo.MIN_POSITION);
-        do {
-            leftMotor.setPower(-FULLPOWER);
-            rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 2);
-        startTime = super.getRuntime();
-        do {
-            leftMotor.setPower(FULLPOWER);
-            //rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + .5);
         startTime = super.getRuntime();
         do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 1.5);
-        }
+        } while (getRuntime() < startTime + DRIVE_OFF_PLATFORM_TIME + KNOCK_JEWEL_TIME);
+
+        startTime = super.getRuntime();
+
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(FULLPOWER);
+        } while (getRuntime() < startTime + TURN_TIME);
+
+        startTime = super.getRuntime();
+        do {
+            leftMotor.setPower(-FULLPOWER);
+            rightMotor.setPower(-FULLPOWER);
+        } while (getRuntime() < startTime + PARKING_TIME);
+
+    }
 
 
 
