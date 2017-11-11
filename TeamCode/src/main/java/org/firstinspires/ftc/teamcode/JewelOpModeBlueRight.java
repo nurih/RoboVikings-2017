@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.sun.tools.javac.util.Position;
 
 
-@Autonomous(name = "BlueAllianceTurnRight", group = "Test")
+@Autonomous(name = "Blue Right", group = "Test")
 public class JewelOpModeBlueRight extends LinearOpMode {
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
@@ -105,7 +105,7 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         do {
             leftMotor.setPower(FULLPOWER);
             //rightMotor.setPower(-FULLPOWER);
-        } while (getRuntime() < startTime + 2);
+        } while (getRuntime() < startTime + .5);
         startTime = super.getRuntime();
         do {
             leftMotor.setPower(-FULLPOWER);

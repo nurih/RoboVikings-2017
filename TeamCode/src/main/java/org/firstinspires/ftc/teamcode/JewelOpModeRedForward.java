@@ -7,17 +7,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.sun.tools.javac.util.Position;
 
 
-@Autonomous(name = "BlueAlliance", group = "Test")
-public class JewelOpModeBlue extends LinearOpMode {
+@Autonomous(name = "Red Forward", group = "Test")
+public class JewelOpModeRedForward extends LinearOpMode {
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
-    Alliance allience = Alliance.Blue;
+    Alliance allience = Alliance.Red;
     private Servo servo = null;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
+
 
     public void setup() {
         telemetry.addLine("setup!");
@@ -60,9 +60,9 @@ public class JewelOpModeBlue extends LinearOpMode {
         // "react" - knock off the jewel according to our alliance
 
         if ( isBlue ) {
-            goForward();
-        } else if ( isRed ) {
             goBackward();
+        } else if ( isRed ) {
+            goForward();
         } else {
             stopMotors();
         }
@@ -77,13 +77,13 @@ public class JewelOpModeBlue extends LinearOpMode {
     private void goBackward() {
         double startTime = super.getRuntime();
         do {
-            leftMotor.setPower(FULLPOWER);
-            rightMotor.setPower(FULLPOWER);
+        leftMotor.setPower(FULLPOWER);
+        rightMotor.setPower(FULLPOWER);
         } while (getRuntime() < startTime + .2);
         servo.setPosition(Servo.MIN_POSITION);
         do {
-            leftMotor.setPower(FULLPOWER);
-            rightMotor.setPower(FULLPOWER);
+        leftMotor.setPower(-FULLPOWER);
+        rightMotor.setPower(-FULLPOWER);
         } while (getRuntime() < startTime + 2);
 
 
@@ -93,19 +93,18 @@ public class JewelOpModeBlue extends LinearOpMode {
     private void goForward() {
         double startTime = super.getRuntime();
         do {
-            leftMotor.setPower(-FULLPOWER);
-            rightMotor.setPower(-FULLPOWER);
+        leftMotor.setPower(-FULLPOWER);
+        rightMotor.setPower(-FULLPOWER);
         } while (getRuntime() < startTime + .2);
         servo.setPosition(Servo.MIN_POSITION);
         do {
-            leftMotor.setPower(FULLPOWER);
-            rightMotor.setPower(FULLPOWER);
+        leftMotor.setPower(-FULLPOWER);
+        rightMotor.setPower(-FULLPOWER);
         } while (getRuntime() < startTime + 2);
 
 
 
     }
-
 
     private boolean getIsBlue(HsvValues hsv) {
         boolean result;
@@ -132,4 +131,6 @@ public class JewelOpModeBlue extends LinearOpMode {
         }
         return result;
     }
+
 }
+

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "RedAllianceTurnRight", group = "Test")
+@Autonomous(name = "Red Right", group = "Test")
 public class JewelOpModeRedRight extends LinearOpMode {
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
