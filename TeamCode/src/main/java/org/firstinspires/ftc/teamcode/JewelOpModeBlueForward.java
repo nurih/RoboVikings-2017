@@ -10,18 +10,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "Blue Forward", group = "Test")
 public class JewelOpModeBlueForward extends LinearOpMode {
-    public static final double KNOCK_JEWEL_TIME = .2;
-    public static final double DRIVE_OFF_PLATFORM_TIME = 3;
+    public static final double KNOCK_JEWEL_TIME = .3;
+    public static final double DRIVE_OFF_PLATFORM_TIME = 1.7;
     public static final double TURN_TIME = 0;
     public static final double PARKING_TIME = 0;
 
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
     Alliance allience = Alliance.Red;
+    double MAX_POSITION = .9;
     private Servo servo = null;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
-
 
     public void setup() {
         telemetry.addLine("setup!");
@@ -33,8 +33,6 @@ public class JewelOpModeBlueForward extends LinearOpMode {
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        servo.setPosition(Servo.MAX_POSITION);
-
         telemetry.addLine("Initialized!");
     }
 
@@ -44,7 +42,7 @@ public class JewelOpModeBlueForward extends LinearOpMode {
         setup();
 
         // Lower arm
-        servo.setPosition(Servo.MAX_POSITION);
+        servo.setPosition(MAX_POSITION);
         // wait for servo to drop
         double startTime = super.getRuntime();
 
@@ -65,10 +63,9 @@ public class JewelOpModeBlueForward extends LinearOpMode {
             telemetry.addData("Seeing Red ", isRed);
             telemetry.update();
         } while (isRed == false && isBlue == false);
-        //}
+
 
         // "react" - knock off the jewel according to our alliance
-
         if (isBlue) {
             goBackward();
         } else if (isRed) {

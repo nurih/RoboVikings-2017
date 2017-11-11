@@ -18,10 +18,10 @@ public class JewelOpModeRedRight extends LinearOpMode {
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
     Alliance allience = Alliance.Red;
+    double MAX_POSITION = .9;
     private Servo servo = null;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
-
 
     public void setup() {
         telemetry.addLine("setup!");
@@ -33,8 +33,6 @@ public class JewelOpModeRedRight extends LinearOpMode {
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        servo.setPosition(Servo.MAX_POSITION);
-
         telemetry.addLine("Initialized!");
     }
 
@@ -44,7 +42,7 @@ public class JewelOpModeRedRight extends LinearOpMode {
         setup();
 
         // Lower arm
-        servo.setPosition(Servo.MAX_POSITION);
+        servo.setPosition(MAX_POSITION);
         // wait for servo to drop
         double startTime = super.getRuntime();
 
