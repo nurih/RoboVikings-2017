@@ -14,15 +14,18 @@ public class JewelOpModeBlueRight extends LinearOpMode {
     public static final double DRIVE_OFF_PLATFORM_TIME = 1.5;
     public static final double TURN_TIME = .5;
     public static final double PARKING_TIME = .6;
-
+    public static final double EXTENDER_GRIP = .3;
 
     final float FULLPOWER = 0.5f;
     NormalizedColorSensor colorSensor;
     Alliance allience = Alliance.Blue;
     double MAX_POSITION = .9;
     private Servo servo = null;
+    private Servo servoCube = null;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
+    private DcMotor extenderMotor = null;
+
 
     public void setup() {
         telemetry.addLine("setup!");
@@ -30,11 +33,13 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         servo = Viki.getRobotPart(hardwareMap, RobotPart.jewelServo);
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
-
+        servoCube = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
+        servoCube.setPosition(0.5);
+        extenderMotor = Viki.getRobotPart(hardwareMap, RobotPart.relicExtenderMotor);
+        extenderMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        //extenderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
         telemetry.addLine("Initialized!");
     }
 
@@ -42,16 +47,22 @@ public class JewelOpModeBlueRight extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         setup();
+        servoCube.setPosition(Servo.MAX_POSITION);
+        double startTime = super.getRuntime();
+        do {
+            extenderMotor.setPower(FULLPOWER);
+        } while (getRuntime() < startTime + 10);
+
+
+
+
+
+
 
         // Lower arm
-        servo.setPosition(MAX_POSITION);
+        //servo.setPosition(MAX_POSITION);
         // wait for servo to drop
-        double startTime = super.getRuntime();
-
-        do {
-            // waiting for servo to drop
-        } while (getRuntime() < startTime + 3);
-
+        // wait(3000);
         // detect color
         boolean isRed;
         boolean isBlue;
@@ -64,6 +75,7 @@ public class JewelOpModeBlueRight extends LinearOpMode {
             telemetry.addData("Seeing Blue ", isBlue);
             telemetry.addData("Seeing Red ", isRed);
             telemetry.update();
+            extenderMotor.setPower(FULLPOWER);
         } while (isRed == false && isBlue == false);
         //}
 
@@ -75,7 +87,6 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         }
         stopMotors();
     }
-
 
     private void stopMotors() {
         leftMotor.setPower(0);
@@ -97,7 +108,6 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         } while (getRuntime() < startTime + DRIVE_OFF_PLATFORM_TIME);
 
         startTime = super.getRuntime();
-
         do {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(FULLPOWER);
@@ -108,8 +118,6 @@ public class JewelOpModeBlueRight extends LinearOpMode {
             leftMotor.setPower(-FULLPOWER);
             rightMotor.setPower(-FULLPOWER);
         } while (getRuntime() < startTime + PARKING_TIME);
-
-
     }
 
 
@@ -140,9 +148,6 @@ public class JewelOpModeBlueRight extends LinearOpMode {
         } while (getRuntime() < startTime + PARKING_TIME);
 
     }
-
-
-
 
 
     private boolean getIsBlue(HsvValues hsv) {
