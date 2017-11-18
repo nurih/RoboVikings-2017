@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -24,7 +23,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     protected boolean isBlueJewel;
     protected boolean lastDroveFowrard;
 
-    public void setup(Alliance alliance, boolean shouldTurn) {
+    public JewelBaseOpMode(Alliance alliance, boolean shouldTurn) {
         telemetry.addLine("setup!");
         this.alliance = alliance;
         this.shouldTurn = shouldTurn;
@@ -121,7 +120,6 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     protected void stopMotors() {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-
     }
 
     protected void compansateJewelKnock() throws InterruptedException {
@@ -153,23 +151,25 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         // wait
         this.wait(TURN_TIME_MILLISEC);
         stopMotors();
-
     }
 
-    protected void runAutonomous() throws InterruptedException {
+    @Override
+    public void runOpMode() throws InterruptedException {
+        grabCube();
         detectColor();
-
         knockJewel();
-
         compansateJewelKnock();
-
         driveOffPlatform();
-
         if (shouldTurn) {
             turnToCrypto(alliance);
         }
-
         stopMotors();
     }
+
+    protected void grabCube() {
+        // grab the cube..
+    }
+
+
 }
 
