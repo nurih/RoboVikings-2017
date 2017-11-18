@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Experimental;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -18,10 +18,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.RobotPart;
+import org.firstinspires.ftc.teamcode.Viki;
 
-@Disabled
+
 @Autonomous(name = "Drive To Images", group = "Test")
-public class ConceptVuMarkIdentification extends LinearOpMode {
+public class DriveToImagesOpMode extends LinearOpMode {
 
     public static final int MOTOR_FULL_POWER = 1;
     public static final double MOTOR_MEDIUM_POWER = 0.7;
@@ -33,7 +35,7 @@ public class ConceptVuMarkIdentification extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        //telemetry.addLine("I just want to say Jason couldn't have done this");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 

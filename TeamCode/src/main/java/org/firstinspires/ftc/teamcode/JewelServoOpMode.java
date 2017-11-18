@@ -4,6 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
+/*
+* This op mode lifts the color sensor arm so that it doesn't interfere in
+* normal driving.
+* */
 @TeleOp(name="Jewel Servo Op Mode")
 public class JewelServoOpMode extends OpMode {
     private Servo servo = null;

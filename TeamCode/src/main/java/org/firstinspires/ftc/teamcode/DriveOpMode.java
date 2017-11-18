@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Drive", group = "Test")
 public class DriveOpMode extends OpMode {
+    public static final double MOTOR_POWER = 0.7;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
 
@@ -36,8 +37,8 @@ public class DriveOpMode extends OpMode {
 
     @Override
     public void loop() {
-        leftMotor.setPower(gamepad1.left_stick_y * 0.7);
-        rightMotor.setPower(gamepad1.right_stick_y * 0.7);
+        leftMotor.setPower(gamepad1.left_stick_y * MOTOR_POWER);
+        rightMotor.setPower(gamepad1.right_stick_y * MOTOR_POWER);
         if ( gamepad1.x ) {
             setMotorsForForward();
         } else if ( gamepad1.y ) {
