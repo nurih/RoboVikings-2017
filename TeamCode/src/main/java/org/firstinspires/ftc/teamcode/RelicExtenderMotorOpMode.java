@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 ///TODO: find better names
 @TeleOp(name = "Relic Extender Motor", group = "test")
 public class RelicExtenderMotorOpMode extends OpMode {
+    public static final double CUBE_GRAB_POWER = 0.5;
     private DcMotor motor = null;
 
 
@@ -36,7 +37,7 @@ public class RelicExtenderMotorOpMode extends OpMode {
             motor.setPower(1);
             motor.setPower(0);
         } else if (gamepad2.left_trigger == 1) {
-            motor.setPower(1);
+            motor.setPower(-1);
             motor.setPower(0);
         }
 
@@ -44,10 +45,10 @@ public class RelicExtenderMotorOpMode extends OpMode {
     public void grabCube() {
 
         if (gamepad2.right_trigger == 1) {
-            motor.setPower(0.7);
+            motor.setPower(CUBE_GRAB_POWER);
             motor.setPower(0);
         } else if (gamepad2.left_trigger == 1) {
-            motor.setPower(-.7);
+            motor.setPower(-CUBE_GRAB_POWER);
         }
 
     }

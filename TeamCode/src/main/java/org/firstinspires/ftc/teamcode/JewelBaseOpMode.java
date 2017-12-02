@@ -10,6 +10,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     public static final int ARM_DROP_MILLISEC = 3000;
     public static final int ARM_LIFT_MILLISEC = 1000;
     public static final int KNOCK_JEWEL_MILLISEC = 300;
+    private static final long LIFT_CUBE_MILLISECONDS = 500;
     final float FULLPOWER = 0.5f;
     protected long DRIVE_OFF_PLATFORM_MILLISEC = 1700;
     protected long TURN_TIME_MILLISEC = 500;
@@ -20,8 +21,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     protected Servo colorSensorArmServo = null;
     protected DcMotor rightMotor = null;
     protected DcMotor leftMotor = null;
-  //  protected Servo cubeClawServo=null;
-  protected DcMotor cubemotor = null;
+    protected DcMotor cubemotor = null;
     protected DcMotor liftMotor = null;
 
     protected DetectedColor detectedColor = DetectedColor.None;
@@ -37,14 +37,11 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         telemetry.addLine("setup!");
         colorSensor = Viki.getRobotPart(hardwareMap, RobotPart.colorSensor);
         colorSensorArmServo = Viki.getRobotPart(hardwareMap, RobotPart.jewelServo);
-
-      //  cubeClawServo = Viki.getRobotPart(hardwareMap, RobotPart.cubeLiftClaw);
-      //  cubeClawServo.setPosition(Servo.MIN_POSITION);
         cubemotor = Viki.getRobotPart(hardwareMap, RobotPart.relicExtenderMotor);
         cubemotor.setDirection(DcMotorSimple.Direction.FORWARD);
         cubemotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.relicExtenderMotor);
+        liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.changedMotors);
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -221,13 +218,14 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
 
     protected void grabCube() {
         // grab the cube..
-      //  cubeClawServo.setPosition(Servo.MAX_POSITION);
         cubemotor.setPower(-0.5);
     }
 
     protected void liftCube() {
-        //   servo.setPosition(Servo.MAX_POSITION * 0.5);
-        liftMotor.setPower(0.7);
+        liftMotor.setPower(1);
+
+        vikiWait(LIFT_CUBE_MILLISECONDS);
+
         liftMotor.setPower(0);
     }
 
