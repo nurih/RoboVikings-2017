@@ -13,11 +13,12 @@ public class MotorChangerServoOpMode extends OpMode {
 
     public static MotorSwitchState switchState = MotorSwitchState.CUBE;
     private Servo servo = null;
-    private double servoPosition = Servo.MIN_POSITION;
+    private double servoPosition;
 
     @Override
     public void init() {
         servo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
+        servoPosition = Servo.MIN_POSITION;
         servo.setPosition(this.servoPosition);
         switchState = MotorSwitchState.CUBE;
     }
