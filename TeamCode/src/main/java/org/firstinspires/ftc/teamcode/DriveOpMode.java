@@ -8,15 +8,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Drive", group = "Test")
 public class DriveOpMode extends OpMode {
-    public static final double MOTOR_POWER = 0.7;
+    public static final double MOTOR_POWER = 1.0;
     private DcMotor rightMotor = null;
     private DcMotor leftMotor = null;
 
     @Override
     public void init() {
         setMotorsForForward();
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
     private void setMotorsForForward() {

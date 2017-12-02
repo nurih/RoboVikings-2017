@@ -32,6 +32,12 @@ public enum RobotPart {
     relicExtenderMotor(DcMotor.class),
 
     /**
+     * cube grabber Motor
+     */
+    cubeMotor(DcMotor.class),
+
+
+    /**
      * Relic Elevator Motor and Cube lift Motor
      */
     changedMotors(DcMotor.class),

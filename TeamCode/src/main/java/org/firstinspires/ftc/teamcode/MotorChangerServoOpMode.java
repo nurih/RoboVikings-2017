@@ -11,13 +11,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 * **/
 public class MotorChangerServoOpMode extends OpMode {
 
+    public static MotorSwitchState switchState = MotorSwitchState.CUBE;
     private Servo servo = null;
-    private double servoPosition = Servo.MAX_POSITION;
+    private double servoPosition = Servo.MIN_POSITION;
 
     @Override
     public void init() {
         servo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
         servo.setPosition(this.servoPosition);
+        switchState = MotorSwitchState.CUBE;
     }
 
     @Override
@@ -25,10 +27,14 @@ public class MotorChangerServoOpMode extends OpMode {
 
         if (gamepad2.x) {
             servoPosition = Servo.MIN_POSITION;
+            switchState = MotorSwitchState.CUBE;
         } else if (gamepad2.y) {
             servoPosition = Servo.MAX_POSITION;
+            switchState = MotorSwitchState.RELIC;
         }
         servo.setPosition(servoPosition);
+
         telemetry.addData("Motor selection", servoPosition);
+        telemetry.addData("Switch State", switchState);
     }
 }
