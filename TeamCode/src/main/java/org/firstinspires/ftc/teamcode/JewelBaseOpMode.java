@@ -25,6 +25,9 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     protected DcMotor cubemotor = null;
     protected DcMotor liftMotor = null;
     protected Servo motorChangeServo = null;
+    protected Servo servo = null;
+    protected double servoPosition;
+
 
     protected DetectedColor detectedColor = DetectedColor.None;
     protected boolean lastDroveFowrard;
@@ -46,6 +49,9 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.changedMotors);
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        servo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
+        servo.setPosition(this.servoPosition);
 
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
@@ -193,8 +199,11 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         waitForStart();
         // setup the servors, motors, sensor...
         setup();
+
+        setSwitch();
+
         // allow any servos to get to initial position
-        vikiWait(100);
+        vikiWait(300);
         // autonomous sequence of operations
         grabCube();
 
@@ -246,5 +255,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         while (getRuntime() < starttime + waitTimeSeconds);
     }
 
+    public void setSwitch() {
+        servoPosition = Servo.MIN_POSITION;
+    }
 }
-
