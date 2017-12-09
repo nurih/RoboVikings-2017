@@ -25,13 +25,11 @@ import org.firstinspires.ftc.teamcode.Viki;
 @Autonomous(name = "Drive To Images", group = "Test")
 public class DriveToImagesOpMode extends LinearOpMode {
 
-    public static final int MOTOR_FULL_POWER = 1;
-    public static final double MOTOR_MEDIUM_POWER = 0.7;
+    public static final double MOTOR_FULL_POWER = .3;
+    public static final double MOTOR_MEDIUM_POWER = 0;
     public static final int MOTOR_STOP = 0;
-    OpenGLMatrix lastLocation = null;
-    VuforiaLocalizer vuforia;
 
-    Boolean shouldGoForward;
+    VuforiaLocalizer vuforia;
 
     @Override
     public void runOpMode() {
@@ -51,6 +49,7 @@ public class DriveToImagesOpMode extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+
         DcMotor rightMotor = null;
         DcMotor leftMotor = null;
 
@@ -78,7 +77,7 @@ public class DriveToImagesOpMode extends LinearOpMode {
 
                     // Extract the X, Y, and Z components of the offset of the target relative to the robot
                     double tX = Math.round(trans.get(0));
-                    double tY = Math.round(trans.get(MOTOR_FULL_POWER));
+                    double tY = Math.round(trans.get(1));
                     double tZ = Math.round(trans.get(2));
 
                     telemetry.addData("translation X", tX);
@@ -96,7 +95,7 @@ public class DriveToImagesOpMode extends LinearOpMode {
 
                     BotDirection botDirection = getBotDirection(tX);
                     telemetry.addData("Target displacement", botDirection.toString());
-                    boolean tooClose = (tZ> -100);
+                    boolean tooClose = (tZ> -200);
 
                     if (tooClose) {
                         telemetry.addLine("Too Close");
