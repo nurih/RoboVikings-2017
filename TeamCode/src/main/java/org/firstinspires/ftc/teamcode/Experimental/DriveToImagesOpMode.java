@@ -41,7 +41,7 @@ public class DriveToImagesOpMode extends LinearOpMode {
         while (opModeIsActive()) {
 
             int distanceGoal = -200;
-            int translationGoal = 0;
+            int translationGoal = -250;
             driveByCamera.driveToImage(distanceGoal, translationGoal);
         }
     }

@@ -28,12 +28,14 @@ public class DriveByCamera {
     public static final int MOTOR_STOP = 0;
 
     private final HardwareMap hardwareMap;
-    public double tX;
-    public double tY;
-    public double tZ;
-    public double rX;
-    public double rY;
-    public double rZ;
+
+    public double xAxisTranslation;
+    public double yAxisTranslation;
+    public double zAxisTranslation;
+
+    public double xAxisRotation;
+    public double yAxisRotation;
+    public double zAxisRotation;
 
     DcMotor rightMotor = null;
     DcMotor leftMotor = null;
@@ -96,7 +98,7 @@ public class DriveByCamera {
         return new VuforiaLocalizer.Parameters(cameraMonitorViewId);
     }
 
-    public  void driveToImage(int distanceGoaL, int translationGoal) {
+    public  void driveToImage(int distanceGoal, int translationGoal) {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
         if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
@@ -109,9 +111,9 @@ public class DriveByCamera {
                 getTranslationValues(translation);
                 getRotationValues(rotation);
 
-                BotDirection botDirection = getBotDirection(tX, translationGoal);
+                BotDirection botDirection = getBotDirection(xAxisTranslation, translationGoal);
 
-                boolean isDistanceGoalMet = getIfDistanceGoalMet(distanceGoaL);
+                boolean isDistanceGoalMet = getIfDistanceGoalMet(distanceGoal, zAxisTranslation);
 
                 if (isDistanceGoalMet) {
                     telemetry.addLine("Got there!!!");
@@ -148,8 +150,8 @@ public class DriveByCamera {
         telemetry.update();
     }
 
-    private boolean getIfDistanceGoalMet(int distanceGoaL) {
-        return (tZ> distanceGoaL);
+    private boolean getIfDistanceGoalMet(int distanceGoal, double currentTranslation) {
+        return (currentTranslation > distanceGoal);
     }
 
     @Nullable
@@ -168,24 +170,24 @@ public class DriveByCamera {
 
     private void getRotationValues(Orientation rot) {
         // Extract the rotational components of the target relative to the robot
-        rX = Math.round(rot.firstAngle);
-        rY = Math.round(rot.secondAngle);
-        rZ = Math.round(rot.thirdAngle);
+        xAxisRotation = Math.round(rot.firstAngle);
+        yAxisRotation = Math.round(rot.secondAngle);
+        zAxisRotation = Math.round(rot.thirdAngle);
 
-        telemetry.addData("rotation X", rX);
-        telemetry.addData("rotation Y", rY);
-        telemetry.addData("rotation Z", rZ);
+        telemetry.addData("rotation X", xAxisRotation);
+        telemetry.addData("rotation Y", yAxisRotation);
+        telemetry.addData("rotation Z", zAxisRotation);
     }
 
     private void getTranslationValues(VectorF trans) {
         // Extract the X, Y, and Z components of the offset of the target relative to the robot
-        tX = Math.round(trans.get(0));
-        tY = Math.round(trans.get(1));
-        tZ = Math.round(trans.get(2));
+        xAxisTranslation = Math.round(trans.get(0));
+        yAxisTranslation = Math.round(trans.get(1));
+        zAxisTranslation = Math.round(trans.get(2));
 
-        telemetry.addData("translation X", tX);
-        telemetry.addData("translation Y", tY);
-        telemetry.addData("translation Z", tZ);
+        telemetry.addData("translation X", xAxisTranslation);
+        telemetry.addData("translation Y", yAxisTranslation);
+        telemetry.addData("translation Z", zAxisTranslation);
     }
 
 }
