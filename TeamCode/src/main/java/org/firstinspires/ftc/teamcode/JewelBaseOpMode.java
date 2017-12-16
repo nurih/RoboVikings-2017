@@ -13,8 +13,8 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     public static final long CUBE_GRIP_MILLISEC = 1000;
     private static final long LIFT_CUBE_MILLISECONDS = 800;
     final float FULLPOWER = 0.5f;
-    public static final int KNOCK_JEWEL_MILLISEC = 300;
-    protected long DRIVE_OFF_PLATFORM_MILLISEC = 1600;
+    public static final int KNOCK_JEWEL_MILLISEC = 200;
+    protected long DRIVE_OFF_PLATFORM_MILLISEC = 1400;
     protected long TURN_TIME_MILLISEC = 500;
     protected boolean shouldTurn;
     protected NormalizedColorSensor colorSensor;
@@ -59,6 +59,11 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         motorChangeServo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
         motorChangeServo.setPosition(Servo.MIN_POSITION);
@@ -220,7 +225,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         compansateJewelKnock();
 
         // pause to allow smooth direction switch
-        vikiWait(500);
+        vikiWait(100);
 
         driveOffPlatform();
 
