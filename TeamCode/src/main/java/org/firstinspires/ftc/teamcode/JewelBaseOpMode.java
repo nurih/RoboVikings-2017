@@ -8,12 +8,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public abstract class JewelBaseOpMode extends LinearOpMode {
     public static final int ARM_DROP_MILLISEC = 3000;
-    public static final int ARM_LIFT_MILLISEC = 1000;
-    public static final int KNOCK_JEWEL_MILLISEC = 300;
+    public static final int ARM_LIFT_MILLISEC = 2000;
+
     public static final long CUBE_GRIP_MILLISEC = 1000;
     private static final long LIFT_CUBE_MILLISECONDS = 800;
     final float FULLPOWER = 0.5f;
-    protected long DRIVE_OFF_PLATFORM_MILLISEC = 1700;
+    public static final int KNOCK_JEWEL_MILLISEC = 300;
+    protected long DRIVE_OFF_PLATFORM_MILLISEC = 1600;
     protected long TURN_TIME_MILLISEC = 500;
     protected boolean shouldTurn;
     protected NormalizedColorSensor colorSensor;
@@ -203,7 +204,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         setSwitch();
 
         // allow any servos to get to initial position
-        vikiWait(300);
+        vikiWait(500);
         // autonomous sequence of operations
         grabCube();
 
