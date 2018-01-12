@@ -27,13 +27,10 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     protected Servo motorChangeServo = null;
     protected Servo servo = null;
     protected double servoPosition;
-
-
     protected DetectedColor detectedColor = DetectedColor.None;
     protected boolean lastDroveFowrard;
 
     public JewelBaseOpMode(Alliance alliance, boolean shouldTurn) {
-
         this.alliance = alliance;
         this.shouldTurn = shouldTurn;
     }
@@ -45,20 +42,15 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         cubemotor = Viki.getRobotPart(hardwareMap, RobotPart.relicExtenderMotor);
         cubemotor.setDirection(DcMotorSimple.Direction.FORWARD);
         cubemotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         liftMotor = Viki.getRobotPart(hardwareMap, RobotPart.changedMotors);
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         servo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
         servo.setPosition(this.servoPosition);
-
         rightMotor = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
-        leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
-
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
+        leftMotor = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         motorChangeServo = Viki.getRobotPart(hardwareMap, RobotPart.motorChangerServo);
         motorChangeServo.setPosition(Servo.MIN_POSITION);
         telemetry.addLine("Initialized!");
@@ -164,8 +156,8 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     }
 
     private void compansateJewelKnock() throws InterruptedException {
-        // compensate for jewel knock
-        if (lastDroveFowrard) {
+       // compensate for jewel knock
+        if ( lastDroveFowrard ) {
             driveBackward(KNOCK_JEWEL_MILLISEC);
         } else {
             driveFowrard(KNOCK_JEWEL_MILLISEC);
@@ -199,34 +191,23 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         waitForStart();
         // setup the servors, motors, sensor...
         setup();
-
         setSwitch();
-
         // allow any servos to get to initial position
         vikiWait(300);
         // autonomous sequence of operations
         grabCube();
-
         liftCube();
-
         detectColor();
-
         knockJewel();
-
         // wait for arm to lift
         vikiWait(ARM_LIFT_MILLISEC);
-
-        compansateJewelKnock();
-
+//        compansateJewelKnock();
         // pause to allow smooth direction switch
         vikiWait(500);
-
         driveOffPlatform();
-
         if (shouldTurn) {
             turnToCrypto(alliance);
         }
-
         stopMotors();
     }
 
@@ -238,9 +219,7 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
 
     protected void liftCube() {
         liftMotor.setPower(1);
-
         vikiWait(LIFT_CUBE_MILLISECONDS);
-
         liftMotor.setPower(0);
     }
 
@@ -249,12 +228,10 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
         double waitTimeSeconds = milliseconds / 1000.0;
         double starttime = getRuntime();
         do {
-
             telemetry.addLine("waiting...");
         }
         while (getRuntime() < starttime + waitTimeSeconds);
     }
-
     public void setSwitch() {
         servoPosition = Servo.MIN_POSITION;
     }
