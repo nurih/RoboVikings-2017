@@ -20,9 +20,9 @@ public class OmniWheelDriveOpMode extends OpMode {
     public void init() {
 
         rightFront = Viki.getRobotPart(hardwareMap, RobotPart.rightFront);
-        rightBack = Viki.getRobotPart(hardwareMap, RobotPart.rightBack);
+        rightBack = Viki.getRobotPart(hardwareMap, RobotPart.rightMotor);
         leftFront = Viki.getRobotPart(hardwareMap, RobotPart.leftFront);
-        leftBack = Viki.getRobotPart(hardwareMap, RobotPart.leftBack);
+        leftBack = Viki.getRobotPart(hardwareMap, RobotPart.leftMotor);
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

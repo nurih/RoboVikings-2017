@@ -27,19 +27,9 @@ public enum RobotPart {
     rightFront(DcMotor.class),
 
     /**
-     * Back Right Drive Motor
-     */
-    rightBack(DcMotor.class),
-
-    /**
      * Front Left Drive Motor
      */
     leftFront(DcMotor.class),
-
-    /**
-     * Back Left Drive Motor
-     */
-    leftBack(DcMotor.class),
 
     /**
      * Jewel servo
