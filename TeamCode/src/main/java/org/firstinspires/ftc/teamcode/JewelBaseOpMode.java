@@ -13,8 +13,8 @@ public abstract class JewelBaseOpMode extends LinearOpMode {
     public static final long CUBE_GRIP_MILLISEC = 1000;
     private static final long LIFT_CUBE_MILLISECONDS = 800;
     final float FULLPOWER = 0.5f;
-    protected long DRIVE_OFF_PLATFORM_MILLISEC = 1700;
-    protected long TURN_TIME_MILLISEC = 500;
+    protected long DRIVE_OFF_PLATFORM_MILLISEC = 800;
+    protected long TURN_TIME_MILLISEC = 600;
     protected boolean shouldTurn;
     protected NormalizedColorSensor colorSensor;
     protected Alliance alliance;
